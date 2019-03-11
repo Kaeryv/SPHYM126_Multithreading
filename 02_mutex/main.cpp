@@ -1,7 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
-#define MAX_GREETINGS 2
+#define MAX_GREETINGS 3
 
 // Verrou pour la resource 'ecriture'
 std::mutex verrou_ecriture;
@@ -15,6 +15,11 @@ void loop(int id)
 
     verrou_ecriture.lock();
     printf("\e\[31m:: Mutex locked \e\[00m\n");
+    if(id==1)
+    {
+      std::cout << "Thread nr. " << id  << " waiting for user interaction." << std::endl;
+      std::cin.get();
+    }
     printf(" ::  Numéro du thread: %d, appel nr. %d. \n", id, i);
     printf(" ::  Identifiant physique du thread: 0x%08x \n", std::this_thread::get_id());
 
