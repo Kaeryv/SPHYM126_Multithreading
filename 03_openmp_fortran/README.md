@@ -40,7 +40,7 @@ To summarize, directives for vectorization, automatic parallelism are preservati
 ### OpenMP is particular
 
 The case of OpenMP is quite special because OpenMp contains strong directives that not only guide the compiler but deeply modifies the code. This last sentence is in contradiction with the statement above about 'drop in' parallelization. That's right, we need to be careful with OpenMP as it still
-requires torough code itegration.
+requires thorough code integration.
 Moreover, OpenMP contains imperative, restrictive and permissive instructions !
 
 ## Instructions overview
@@ -134,4 +134,31 @@ mathematical expressions with increased speed of execution.
 
 ## Data attributes
 
+### Reduction
+
+Application à un calcul de pi:
+```c++
+double calc_pi_gregory(const long max_iter_times)
+{
+    register double cur_pi = 0;
+    #pragma omp parallel for reduction(+:cur_pi)
+    for(register int idx=1; idx<=max_iter_times; idx+=2)
+    {
+        cur_pi += (idx>>1 & 1) ? -4./idx : 4./idx;
+    }
+    return cur_pi;
+}
+```
 ## Sheduling attributes
+
+### Static schedule
+
+```fortran
+!$omp do schedule(static, 64)
+do i = 1, 1027
+    ...
+end do
+!$omp end do
+```
+
+Work is divided in `16` *blocks* of `64` iterations + `1` block of `3` iterations.
