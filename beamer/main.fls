@@ -1,0 +1,5 @@
+PWD c:/Users/Kaeryv/Projects/SPHYM126_Multithreading/beamer
+INPUT c:/texlive/2018/texmf.cnf
+INPUT c:/texlive/2018/texmf-dist/web2c/texmf.cnf
+INPUT c:/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT c:/Users/Kaeryv/Projects/SPHYM126_Multithreading/beamer/main.tex
