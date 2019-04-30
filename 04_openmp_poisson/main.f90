@@ -4,7 +4,7 @@ program main
   use iso_fortran_env
   implicit none
 
-  integer, parameter :: r = 8
+  integer, parameter :: r = 4
   integer :: iu, k
   real(r), dimension(:,:), allocatable :: V, V_old, EPS
   real(r), dimension(_ITERATIONS) :: conv_criterion
@@ -45,15 +45,20 @@ program main
 
   call cpu_time(t1)
 
+  !$omp parallel
   do k = 1, _ITERATIONS
+    !$omp workshare
     V(1:nx-1,1:nx-1) = (EPS(2:nx,1:nx-1)/(dx**2)*V_old(2:nx,1:nx-1)+EPS(0:nx-2,1:nx-1)/(dx**2)*V_old(0:nx-2,1:nx-1)&
     + EPS(1:nx-1,2:nx)/(dx**2)*V_old(1:nx-1,2:nx)+EPS(1:nx-1,0:nx-2)/(dx**2)*V_old(1:nx-1,0:nx-2))&
     / ((EPS(2:nx,1:nx-1) + EPS(0:nx-2,1:nx-1))/(dx**2) + (EPS(1:nx-1,2:nx)+EPS(1:nx-1,0:nx-2))/(dx**2))
+    !$omp end workshare
+    
 
     conv_criterion(k) = maxval(abs(V(1:nx-1,1:nx-1)-V_old(1:nx-1,1:nx-1)))
-  
+    
     V_old(1:nx-1,1:nx-1) = V(1:nx-1,1:nx-1)
   end do
+  !$omp end parallel
 
   call cpu_time(t2)
 

@@ -7,7 +7,7 @@
 void loop(int id)
 {
   for(int i = 0; i < MAX_GREETINGS; i++) 
-  { 
+  {
     printf("Thread nr. %d reporting for duty %d !\n", id, i); 
     printf("L'id physique de ce thread est: %d\n", std::this_thread::get_id()); 
   }

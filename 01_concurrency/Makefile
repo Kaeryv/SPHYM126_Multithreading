@@ -8,3 +8,6 @@ all:
 
 run:
 	./$(BINARY)
+
+clean:
+	rm *.x

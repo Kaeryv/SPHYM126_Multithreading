@@ -118,6 +118,10 @@ La directive workshare est destinée aux functions élémentaires et structures 
 - minval, maxval
 - matmul, reshape
 
+```
+
+```
+
 The above directive is one of the most lean and usefull ones. One can simply enable parallelism on well-defined function, user-implemented or not.
 Array expressions are also easyly managed this way, enabling clear
 mathematical expressions with increased speed of execution.
